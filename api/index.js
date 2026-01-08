@@ -7,7 +7,10 @@ import "dotenv/config";
 const pool = new pkg.Pool({ connectionString: process.env.DATABASE_URL });
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "*"
+}));
+
 app.use(express.json());
 
 /* ================= HELPERS ================= */
