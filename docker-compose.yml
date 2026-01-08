@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  safemap-db:
+    image: postgis/postgis:15-3.3
+    container_name: safemap-db
+    restart: always
+    environment:
+      POSTGRES_DB: safemap
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - safemap_db:/var/lib/postgresql/data
+
+volumes:
+  safemap_db:

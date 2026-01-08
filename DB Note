@@ -1,0 +1,33 @@
+STEP 1 — Create Core GIS Tables
+
+Run inside safemap:
+
+CREATE TABLE zones(
+  id SERIAL PRIMARY KEY,
+  zone_name TEXT,
+  township TEXT,
+  disaster_type TEXT,
+  risk_band TEXT,
+  note TEXT,
+  doc_urls JSONB DEFAULT '[]',
+  geom GEOMETRY(POLYGON,4326)
+);
+
+CREATE TABLE corridors(
+  id SERIAL PRIMARY KEY,
+  safety_band TEXT,
+  note TEXT,
+  doc_urls JSONB DEFAULT '[]',
+  geom GEOMETRY(LINESTRING,4326)
+);
+
+STEP 2 — Add Spatial Index (Performance)
+CREATE INDEX zones_gix ON zones USING GIST (geom);
+CREATE INDEX corridors_gix ON corridors USING GIST (geom);
+
+
+After running, verify:
+
+\dt
+\d zones
+\d corridors
